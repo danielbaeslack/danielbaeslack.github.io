@@ -347,9 +347,9 @@ function build(){
   pg.appendChild(s);T.appendChild(pg);built=T.children.length;upd();
 }
 function idx(){return Math.round(T.scrollLeft/pw);}
-function upd(){var i=idx();cnt.textContent='Seite '+(i+1)+' von '+built;prev.disabled=i<=0;next.disabled=i>=built-1;}
+var sent={},dw;function gc(p,ti){if(sent[p])return;sent[p]=1;try{window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path:p,title:ti,event:true});}catch(e){}}function upd(){var i=idx();cnt.textContent='Seite '+(i+1)+' von '+built;prev.disabled=i<=0;next.disabled=i>=built-1;clearTimeout(dw);dw=setTimeout(function(){if(R.hidden)return;var j=idx();if(j>=Math.floor((built-1)/2))gc('leseprobe-haelfte','Leseprobe bis zur Hälfte');if(j>=built-1)gc('leseprobe-ende','Leseprobe bis zum Ende');},2500);}
 function go(d){T.scrollTo({left:(idx()+d)*pw,behavior:'smooth'});}
-function open(){R.hidden=false;document.documentElement.style.overflow='hidden';build();T.scrollLeft=0;upd();document.getElementById('reader-x').focus();
+function open(){sent={};R.hidden=false;document.documentElement.style.overflow='hidden';build();T.scrollLeft=0;upd();document.getElementById('reader-x').focus();
   try{window.goatcounter&&window.goatcounter.count&&window.goatcounter.count({path:'leseprobe-geoeffnet',title:'Leseprobe geöffnet',event:true});}catch(e){}}
 function close(){R.hidden=true;document.documentElement.style.overflow='';}
 document.querySelectorAll('[data-open-reader]').forEach(function(b){b.addEventListener('click',open);});
@@ -358,7 +358,7 @@ prev.addEventListener('click',function(){go(-1);});next.addEventListener('click'
 T.addEventListener('scroll',function(){window.requestAnimationFrame(upd);});
 document.addEventListener('keydown',function(e){if(R.hidden)return;if(e.key==='Escape')close();if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1);});
 var rt;window.addEventListener('resize',function(){if(R.hidden)return;clearTimeout(rt);rt=setTimeout(function(){var i=idx();build();T.scrollLeft=Math.min(i,built-1)*pw;upd();},200);});
-if(location.hash==='#lesen')open();
+function chk(){if(location.hash==='#lesen'&&R.hidden)open();}chk();window.addEventListener('hashchange',chk);window.addEventListener('pageshow',chk);
 })();
 </script>
 
