@@ -68,7 +68,7 @@ a.addEventListener("click",function(e){cnt();
  e.preventDefault();var url=a.href;
  setTimeout(function(){
   if(ios){location.href="x-safari-"+url;setTimeout(function(){if(!document.hidden)location.href=url},1500);}
-  else{location.href="intent://"+url.replace(/^https?:\/\//,"")+"#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url="+encodeURIComponent(url)+";end";}
+  else{location.href="intent://"+url.replace(/^https?:\/\//,"")+"#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url="+encodeURIComponent(url)+";end";setTimeout(function(){if(!document.hidden)location.href=url},1500);}
  },400)});})();
 </script>
 <script data-goatcounter="https://danielbaeslack.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
